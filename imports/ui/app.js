@@ -1,6 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import gql from 'graphql-tag';
+import { graphql } from 'react-apollo';
 
-const App = () =>
-  <h1>Hello world</h1>;
+const hiQuery = gql`
+  {
+    hi
+  }
+`;
 
-export default App;
+const App = ({ data }) =>
+  <h1>{data.hi}</h1>;
+
+App.propTypes = {
+  data: PropTypes.object
+};
+
+export default graphql(
+  hiQuery
+)(App);
