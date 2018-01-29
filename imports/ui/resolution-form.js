@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 
@@ -12,7 +11,6 @@ const createResolution = gql`
 `;
 
 class ResolutionForm extends Component {
-
   submitForm = e => {
     e.preventDefault();
     this.props.createResolution({
@@ -20,8 +18,7 @@ class ResolutionForm extends Component {
         name: this.name.value
       }
     }).then(({ data }) => {
-      // refetch updated data
-      this.props.refetch();
+      console.log(data);
     }).catch(err => {
       console.log(err);
     });
@@ -38,5 +35,8 @@ class ResolutionForm extends Component {
 }
 
 export default graphql(createResolution, {
-  name: 'createResolution'
+  name: 'createResolution',
+  options: {
+    refetchQueries: ['Resolutions']
+  }
 })(ResolutionForm);

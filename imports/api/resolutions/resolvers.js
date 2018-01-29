@@ -2,13 +2,13 @@ import Resolutions from './resolutions';
 
 const ResolutionsResolvers = {
   Query: {
-    resolutions() {
-      return Resolutions.find({}).fetch();
+    resolutions(obj, args, { userId }) {
+      return Resolutions.find({ userId }).fetch();
     }
   },
   Mutation: {
-    createResolution(obj, { name }, context) {
-      const resolutionId = Resolutions.insert({ name });
+    createResolution(obj, { name }, { userId }) {
+      const resolutionId = Resolutions.insert({ name, userId });
       return Resolutions.findOne(resolutionId);
     }
   }
