@@ -6,30 +6,25 @@ import merge from 'lodash/merge';
 import ResolutionsSchema from '../../api/resolutions/resolutions.graphql';
 import ResolutionsResolvers from '../../api/resolutions/resolvers';
 
-const testSchema = `
-  type Query {
-    hi: String,
-    resolutions: [Resolution]
-  }
-`;
+import UsersSchema from '../../api/users/user.graphql';
+import UsersResolvers from '../../api/users/resolvers';
+
+import GoalsSchema from '../../api/goals/goals.graphql';
+import GoalsResolvers from '../../api/goals/resolvers';
+
+//111
 
 // all schemas
 const typeDefs = [
-  testSchema,
-  ResolutionsSchema
+  ResolutionsSchema,
+  UsersSchema,
+  GoalsSchema
 ];
 
-// server-side code
-const resolver = {
-  Query: {
-    hi() {
-      return 'Hello Level Up';
-    }
-  }
-};
-
 const resolvers = merge(
-  resolver, ResolutionsResolvers
+  ResolutionsResolvers,
+  UsersResolvers,
+  GoalsResolvers
 );
 
 // combine resolvers

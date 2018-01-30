@@ -7,6 +7,7 @@ import { graphql, withApollo } from 'react-apollo';
 import RegisterForm from './register-form';
 import LoginForm from './login-form';
 import ResolutionForm from './resolution-form';
+import GoalForm from './goal-form';
 
 const resolutionsQuery = gql`
   query Resolutions {
@@ -14,10 +15,13 @@ const resolutionsQuery = gql`
       _id
       name
     }
+    user {
+      _id
+    }
   }
 `;
 
-// client coming from withApollo
+// client prop coming from withApollo
 const App = ({ loading, resolutions, client }) => {
   if(loading) return <div>Loading</div>;
   return (
@@ -30,7 +34,12 @@ const App = ({ loading, resolutions, client }) => {
       <LoginForm client={client} />
       <ResolutionForm />
       <ul>
-        {resolutions.map(res => <li key={res._id}>{res.name}</li>)}
+        {resolutions.map(res =>
+          <li key={res._id}>
+            {res.name}
+            <GoalForm resolutionId={res._id} />
+          </li>
+        )}
       </ul>
     </div>
   );
